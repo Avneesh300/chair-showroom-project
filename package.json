@@ -1,0 +1,35 @@
+{
+  "name": "chair-showroom",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "expres": "^0.0.5",
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security",
+    "google-auth-library": "^10.6.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.3",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.9",
+    "nodemon": "^3.1.14",
+    "path": "^0.12.7",
+    "razorpay": "^2.9.6",
+    "router": "^2.2.0",
+    "slsx": "^0.0.3",
+    "slugify": "^1.6.9",
+    "xlsx": "^0.18.5"
+  }
+}
