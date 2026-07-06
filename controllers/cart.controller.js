@@ -225,3 +225,25 @@ export const getAllCart =
 
     );
   });
+
+  export const clearCart = asyncHandler(async (req, res) => {
+  const result = await Cart.updateMany(
+    {
+      user: req.user.id,
+      status: "1",
+    },
+    {
+      $set: {
+        status: "0",
+      },
+    }
+  );
+
+  return responseSuccess(
+    res,
+    "Cart cleared successfully",
+    {
+      modifiedCount: result.modifiedCount,
+    }
+  );
+});

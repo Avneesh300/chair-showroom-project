@@ -6,6 +6,7 @@ import {
   addToCart,
   deleteCart,
   getAllCart,
+  clearCart,
 } from "../controllers/cart.controller.js";
 
 const router = express.Router();
@@ -15,6 +16,12 @@ router.post(
   authMiddleware,
   upload.none(),
   addToCart
+);
+router.post(
+  "/clear",
+  authMiddleware,
+  upload.none(),
+  clearCart
 );
 
 router.post(
