@@ -7,6 +7,7 @@ import {
   deleteCart,
   getAllCart,
   clearCart,
+  updateCartQuantity,
 } from "../controllers/cart.controller.js";
 
 const router = express.Router();
@@ -17,6 +18,9 @@ router.post(
   upload.none(),
   addToCart
 );
+
+router.post("/update-quantity", authMiddleware, upload.none(), updateCartQuantity);
+
 router.post(
   "/clear",
   authMiddleware,

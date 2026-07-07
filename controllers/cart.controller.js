@@ -8,6 +8,7 @@ export const addToCart =
   asyncHandler(async (req, res) => {
     const {
       product,
+      quantity,
     } = req.body;
 
     if (!product) {
@@ -42,11 +43,17 @@ export const addToCart =
       );
     }
 
-    const cartItem =
-      await Cart.create({
-        user: req.user.id,
-        product,
-      });
+    // const cartItem =
+    //   await Cart.create({
+    //     user: req.user.id,
+    //     product,
+    //   });
+
+    const cartItem = await Cart.create({
+      user: req.user.id,
+      product,
+      addToCartQuantity: quantity || 1,
+    });
 
     return responseSuccess(
       res,
@@ -213,7 +220,7 @@ export const getAllCart =
       slug: item.product?.slug || "",
       stock: item.product?.stock || 0,
       status: item.status,
-      quantity: item.quantity || 1,
+      quantity: item.addToCartQuantity || 1,
       paginations: pagination,
     }));
 
@@ -226,7 +233,7 @@ export const getAllCart =
     );
   });
 
-  export const clearCart = asyncHandler(async (req, res) => {
+export const clearCart = asyncHandler(async (req, res) => {
   const result = await Cart.updateMany(
     {
       user: req.user.id,
@@ -247,3 +254,44 @@ export const getAllCart =
     }
   );
 });
+
+
+export const updateCartQuantity =
+  asyncHandler(async (req, res) => {
+    const { id, quantity } = req.body;
+
+    if (!id) {
+      return responseError(
+        res,
+        "Cart Id is required",
+        400
+      );
+    }
+
+    if (!quantity || quantity < 1) {
+      return responseError(
+        res,
+        "Valid quantity is required",
+        400
+      );
+    }
+
+    const cart = await Cart.findById(id);
+
+    if (!cart) {
+      return responseError(
+        res,
+        "Cart item not found",
+        404
+      );
+    }
+
+    cart.addToCartQuantity = quantity;
+
+    await cart.save();
+
+    return responseSuccess(
+      res,
+      "Cart quantity updated successfully"
+    );
+  });
